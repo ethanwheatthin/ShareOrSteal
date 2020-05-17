@@ -82,10 +82,21 @@ class AbstractPlayer:
 #   4. Modify the personal_decision_log or opponent_decision_log.
 
 
-class WheatThin (AbstractPlayer):
+class Wheatty_Stone (AbstractPlayer):
     def choose_move(self):
         # We'll start you out as Gandhi, but there are tons of other examples below
-        return CHOICE.SHARE
+        steal_count = 0
+        share_count = 0
+        for i in range(len(self.opponent_decision_log)):
+            if i == CHOICE.STEAL:
+                steal_count += 1
+            else:
+                share_count += 1
+
+        if (steal_count + share_count) % 2 == 0:
+            return CHOICE.SHARE
+        return CHOICE.STEAL
+
 
 
 # EXAMPLE PLAYERS
@@ -112,7 +123,7 @@ class UniformRandom (AbstractPlayer):
 
 
 class BigStick (AbstractPlayer):
-    def choose_move(self):
+    def choose_cmove(self):
         # never forgive. never forget.
         if CHOICE.STEAL in self.opponent_decision_log:
             return CHOICE.STEAL
@@ -210,7 +221,7 @@ if __name__ == "__main__":
         ExpectedValue(),
         CounterExpectedValue(),
         ExpectedValueWeightedRandom(),
-        WheatThin()
+        Wheatty_Stone()
     ]
 
     players = {player.name: player for player in players}
