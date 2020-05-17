@@ -93,8 +93,9 @@ class Wheatty_Stone (AbstractPlayer):
             else:
                 share_count += 1
 
-        if (steal_count + share_count) % 2 == 0:
+        if steal_count > share_count:
             return CHOICE.SHARE
+
         return CHOICE.STEAL
 
 
